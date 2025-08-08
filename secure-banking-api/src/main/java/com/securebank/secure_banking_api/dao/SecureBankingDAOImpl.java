@@ -1,0 +1,103 @@
+package com.securebank.secure_banking_api.dao;
+
+import com.securebank.secure_banking_api.entity.Account;
+import com.securebank.secure_banking_api.entity.Customer;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.List;
+
+@Repository
+public class SecureBankingDAOImpl implements SecureBankingDAO {
+    private EntityManager entityManager;
+
+    // inject entityManager into the program, done automatically by spring
+
+    @Autowired
+    public SecureBankingDAOImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @Override
+    @Transactional
+    public void addCustomer(Customer customer) {
+        entityManager.persist(customer);
+    }
+
+    @Override
+    public Customer getCustomerById(Long customerId) {
+        return entityManager.find(Customer.class, customerId);
+    }
+
+    @Override
+    @Transactional
+    public void updateCustomerById(Long customerId, Customer customer) {
+        Customer existingCustomer = entityManager.find(Customer.class, customerId);
+
+        // id's are primary keys that shouldn't be changed once set
+
+        if (existingCustomer != null) {
+            existingCustomer.setFirstName(customer.getFirstName());
+            existingCustomer.setLastName(customer.getLastName());
+            existingCustomer.setPassword(customer.getPassword());
+            existingCustomer.setEmail(customer.getEmail());
+            existingCustomer.setAddress(customer.getAddress());
+            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
+
+            entityManager.merge(existingCustomer);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomerById(Long customerId) {
+        entityManager.remove(entityManager.find(Customer.class, customerId));
+    }
+
+    @Override
+    @Transactional
+    public void addAccountToCustomer(Long customerId, Account account) {
+        Customer customer = entityManager.find(Customer.class, customerId);
+
+        customer.addAccount(account);
+        entityManager.merge(customer);
+    }
+
+    @Override
+    public Account getAccountById(Long accountId) {
+        return entityManager.find(Account.class, accountId);
+    }
+
+    @Override
+    public List<Account> getAccountsByCustomerId(Long customerId) {
+        Customer customer = entityManager.find(Customer.class, customerId);
+
+        return customer != null ? customer.getAccounts() : Collections.emptyList();
+    }
+
+    @Override
+    @Transactional
+    public void updateAccountById(Long accountId, Account account) {
+        Account accountToUpdate = entityManager.find(Account.class, accountId);
+
+        // id's are primary keys that shouldn't be changed once set
+
+        if (accountToUpdate != null) {
+            accountToUpdate.setBalance(account.getBalance());
+            accountToUpdate.setType(account.getType());
+            accountToUpdate.setStatus(account.getStatus());
+            accountToUpdate.setCustomer(account.getCustomer());
+
+            entityManager.merge(accountToUpdate);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAccountById(Long accountId) {
+        entityManager.remove(entityManager.find(Account.class, accountId));
+    }
+}

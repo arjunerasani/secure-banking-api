@@ -2,6 +2,7 @@ package com.securebank.secure_banking_api.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -117,6 +118,19 @@ public class Customer {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public void addAccount(Account account) {
+        if (accounts == null) {
+            accounts = new ArrayList<>();
+        }
+
+        accounts.add(account);
+
+        // this last line of code is essentially saying that for the account passed in set its customer as the
+        // current object
+
+        account.setCustomer(this);
     }
 
     @Override
