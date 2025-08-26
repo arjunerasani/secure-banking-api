@@ -5,7 +5,6 @@ import com.securebank.secure_banking_api.entity.Customer;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +21,6 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     }
 
     @Override
-    @Transactional
     public void addCustomer(Customer customer) {
         entityManager.persist(customer);
     }
@@ -33,7 +31,6 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     }
 
     @Override
-    @Transactional
     public void updateCustomerById(Long customerId, Customer customer) {
         Customer existingCustomer = entityManager.find(Customer.class, customerId);
 
@@ -52,13 +49,11 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     }
 
     @Override
-    @Transactional
     public void deleteCustomerById(Long customerId) {
         entityManager.remove(entityManager.find(Customer.class, customerId));
     }
 
     @Override
-    @Transactional
     public void addAccountToCustomer(Long customerId, Account account) {
         Customer customer = entityManager.find(Customer.class, customerId);
 
@@ -79,7 +74,6 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     }
 
     @Override
-    @Transactional
     public void updateAccountById(Long accountId, Account account) {
         Account accountToUpdate = entityManager.find(Account.class, accountId);
 
@@ -96,7 +90,6 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     }
 
     @Override
-    @Transactional
     public void deleteAccountById(Long accountId) {
         entityManager.remove(entityManager.find(Account.class, accountId));
     }
