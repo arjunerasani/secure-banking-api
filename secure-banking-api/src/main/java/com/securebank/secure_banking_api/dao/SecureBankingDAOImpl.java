@@ -41,7 +41,6 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
             existingCustomer.setLastName(customer.getLastName());
             existingCustomer.setPassword(customer.getPassword());
             existingCustomer.setEmail(customer.getEmail());
-            existingCustomer.setAddress(customer.getAddress());
             existingCustomer.setPhoneNumber(customer.getPhoneNumber());
 
             entityManager.merge(existingCustomer);

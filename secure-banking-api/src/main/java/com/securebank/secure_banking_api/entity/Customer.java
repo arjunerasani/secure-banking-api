@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,9 @@ public class Customer {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -28,9 +31,6 @@ public class Customer {
 
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @Column(name = "address")
-    private String address;
 
     // customer field owns the relationship, any operation applied to customer applies to accounts
     // and deletes the child accounts if this account is removed from the list
@@ -44,16 +44,15 @@ public class Customer {
 
     }
 
-    public Customer(long id, String firstName, String lastName, String email, String password, String phoneNumber,
-                    String address, List<Account> accounts) {
+    public Customer(long id, String firstName, String lastName, String username, String email, String password,
+                    String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.accounts = accounts;
     }
 
     public long getId() {
@@ -80,6 +79,14 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -102,14 +109,6 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public List<Account> getAccounts() {
@@ -139,10 +138,10 @@ public class Customer {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
                 ", accounts=" + accounts +
                 '}';
     }

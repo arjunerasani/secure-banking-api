@@ -7,39 +7,57 @@
     <!-- this link includes the CSS form-->
 
     <link rel="stylesheet" th:href="@{/css/login-register.css}">
-    <link rel="stylesheet" href="../static/css/login-register.css">
 </head>
 <body>
 
 <div class="register-container">
   <h2>Secure Bank Register</h2>
 
+  <div th:if="${success}" class="success-message">
+    <p th:text="${success}"></p>
+  </div>
+
+  <div th:if="${error}" class="error-message">
+    <p th:text="${error}"></p>
+  </div>
+
   <!-- th:action is thymeleaf syntax to post this to an endpoint in this case the register page-->
+  <!-- th:object links this with a customer object so when submit is hit a new customer object is filled with
+  the detail provided -->
 
-  <form th:action="@{/register}" method="post">
+  <form th:action="@{/register}" th:object="${customer}" method="post">
+
+    <!-- th:field links the input field to the specific variable in the customer object we feed in, in the register
+    controller -->
+
     <div class="form-group">
-      <label for="firstname">First Name:</label>
-      <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+      <label>First Name:</label>
+      <input type="text" th:field="*{firstName}" placeholder="Enter your first name" required>
     </div>
 
     <div class="form-group">
-      <label for="lastname">Last Name:</label>
-      <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+      <label>Last Name:</label>
+      <input type="text" th:field="*{lastName}" placeholder="Enter your last name" required>
     </div>
 
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="text" id="email" name="email" placeholder="Enter an email address" required>
+      <label>Username:</label>
+      <input type="text" th:field="*{username}" placeholder="Enter your username" required>
     </div>
 
     <div class="form-group">
-      <label for="phone">Email:</label>
-      <input type="text" id="phone" name="phone" placeholder="Enter a phone number">
+      <label>Email:</label>
+      <input type="email" th:field="*{email}" placeholder="Enter an email address" required>
     </div>
 
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="text" id="password" name="password" placeholder="Enter a password" required>
+      <label>Phone Number:</label>
+      <input type="text" th:field="*{phoneNumber}" placeholder="Enter a phone number">
+    </div>
+
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" th:field="*{password}" placeholder="Enter a password" required>
     </div>
 
     <button type="submit">Register</button>
