@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Secure Bank</title>
+
+    <!-- this link includes the CSS form-->
+
+    <link rel="stylesheet" th:href="@{/css/login-register.css}">
+    <link rel="stylesheet" href="../static/css/login-register.css">
+</head>
+<body>
+
+<div class="register-container">
+  <h2>Secure Bank Register</h2>
+
+  <!-- th:action is thymeleaf syntax to post this to an endpoint in this case the register page-->
+
+  <form th:action="@{/register}" method="post">
+    <div class="form-group">
+      <label for="firstname">First Name:</label>
+      <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastname">Last Name:</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" placeholder="Enter an email address" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Email:</label>
+      <input type="text" id="phone" name="phone" placeholder="Enter a phone number">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" placeholder="Enter a password" required>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+  <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+</div>
+
+</body>
+</html>

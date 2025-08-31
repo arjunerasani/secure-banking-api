@@ -7,6 +7,14 @@ body {
     height: 100vh;
 }
 
+.register-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+}
+
 .login-container {
     background-color: #fff;
     padding: 30px;
@@ -32,7 +40,7 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -60,7 +68,7 @@ p {
 }
 
 a {
-    background-color: #007bff;
+    color: #007bff;
     text-decoration: none;
 }
 
