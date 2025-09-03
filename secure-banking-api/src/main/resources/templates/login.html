@@ -15,15 +15,17 @@
 
     <!-- th:action is thymeleaf syntax to post this to an endpoint in this case the login page-->
 
+    <!-- th:object has to match the model attribute name you have in your controller-->
+
     <form th:action="@{/login}" method="post">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Enter your username" required>
         </div>
 
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="text" id="password" name="password" placeholder="Enter your password" required>
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
         </div>
 
         <!-- Spring security expects default names like username and password -->

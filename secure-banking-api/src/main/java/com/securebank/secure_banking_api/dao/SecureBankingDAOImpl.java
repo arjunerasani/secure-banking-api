@@ -3,6 +3,7 @@ package com.securebank.secure_banking_api.dao;
 import com.securebank.secure_banking_api.entity.Account;
 import com.securebank.secure_banking_api.entity.Customer;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,15 @@ public class SecureBankingDAOImpl implements SecureBankingDAO {
     @Override
     public Customer getCustomerById(Long customerId) {
         return entityManager.find(Customer.class, customerId);
+    }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        String query = "SELECT c FROM Customer c WHERE c.username=:username";
+        Query query1 = entityManager.createQuery(query, Customer.class);
+        query1.setParameter("username", username);
+        Customer customer = (Customer) query1.getSingleResult();
+        return entityManager.find(Customer.class, customer.getId());
     }
 
     @Override

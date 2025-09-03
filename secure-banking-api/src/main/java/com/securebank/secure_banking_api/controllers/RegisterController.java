@@ -1,6 +1,7 @@
 package com.securebank.secure_banking_api.controllers;
 
 import com.securebank.secure_banking_api.service.SecureBankingService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
     private SecureBankingService secureBankingService;
+    private PasswordEncoder passwordEncoder;
 
     // inject the banking service in via constructor so we can use it to add new customers
 
-    public RegisterController(SecureBankingService secureBankingService) {
+    public RegisterController(SecureBankingService secureBankingService, PasswordEncoder passwordEncoder) {
         this.secureBankingService = secureBankingService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -35,6 +38,7 @@ public class RegisterController {
         // ill have to fix this later because the success and failure messages aren't appearing
 
         try {
+            customer.setPassword(passwordEncoder.encode(customer.getPassword()));
             secureBankingService.addCustomer(customer);
             redirectAttributes.addFlashAttribute("success", "Registration successful! You can" +
                     " now login.");

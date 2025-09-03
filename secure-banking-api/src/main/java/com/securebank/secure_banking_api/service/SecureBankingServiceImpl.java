@@ -33,6 +33,11 @@ public class SecureBankingServiceImpl implements SecureBankingService {
     }
 
     @Override
+    public Customer getCustomerByUsername(String username) {
+        return secureBankingDAO.getCustomerByUsername(username);
+    }
+
+    @Override
     @Transactional
     public void updateCustomerById(Long customerId, Customer customer) {
         secureBankingDAO.updateCustomerById(customerId, customer);

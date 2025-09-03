@@ -10,6 +10,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="customer_id")
     private long id;
 
     // nullable = false because we don't want certain fields to be null in the table

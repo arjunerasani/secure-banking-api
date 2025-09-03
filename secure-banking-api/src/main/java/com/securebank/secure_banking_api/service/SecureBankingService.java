@@ -8,6 +8,7 @@ import java.util.List;
 public interface SecureBankingService {
     void addCustomer(Customer customer);
     Customer getCustomerById(Long customerId);
+    Customer getCustomerByUsername(String username);
     void updateCustomerById(Long customerId, Customer customer);
     void deleteCustomerById(Long customerId);
 

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="account_id")
     private long id;
 
     // using the enumerated annotation makes sure that enums are stored as strings in the db

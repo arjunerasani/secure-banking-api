@@ -5,5 +5,6 @@ CREATE TABLE customer (
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone_number VARCHAR(20),
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
